@@ -1,0 +1,23 @@
+
+@keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-80%); }
+  }
+  
+  .carousel {
+    overflow: hidden;
+    position: relative;
+    width: 24rem; /* Adjust based on your design */
+  }
+  
+  .carouselWrapper {
+    display: flex;
+    width: 100%; /* 100% per slide x number of slides */
+    animation: slide 31s linear infinite;
+  }
+  
+  .carouselItem {
+    flex: 0 0 50%; /* Adjust to show 2 images at once */
+    transition: transform 0.1s ease-in-out;
+  }
+  
