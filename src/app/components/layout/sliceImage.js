@@ -29,8 +29,8 @@ export default function SliceImage() {
                 className='w-[280px] h-[320px] rounded-md bg-center bg-cover duration-500'
             ></div>
             <div className="absolute top-1/1 left-5 transform -translate-y-1/2 flex justify-center w-full px-2">
-                {/* <button onClick={goBack} className="btn btn-circle bg-white">❮</button>
-                <button onClick={goForward} className="btn btn-circle bg-white">❯</button> */}
+                <button onClick={goBack} className="btn btn-circle bg-white">❮</button>
+                <button onClick={goForward} className="btn btn-circle bg-white">❯</button>
             </div>
         </div>
     );

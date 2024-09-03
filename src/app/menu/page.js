@@ -1,64 +1,98 @@
-import { fetchData } from "../api"
+"use client"
+import { useEffect, useState } from "react";
+import Loading from "../components/layout/loading";
+import axios from "axios";
+import { useSearch } from "../components/context/SearchContext";
+import { useCart } from "../components/context/cartContext";
+import { CartIcon } from "../components/layout/icons";
+import Toast from "../components/toast";
 
-export default function FlowerMenu(params) {
-    return(
-        <>
-  <div className="py-12 bg-yellow-100 ">
-    <div className="container mx-auto text-center bg-yellow-100 ">
-      <h2 className="text-4xl font-bold mb-8 text-blue-950">Daily Flower Menu</h2>
+export default function FlowerMenu() {
+    const { addToCart } = useCart();
+    const { searchQuery, updateSearchQuery, error } = useSearch();
+    const [sortedProducts, setSortedProducts] = useState([]);
+    const [totalProducts, setTotalProducts] = useState(0);
+    const [sortOption, setSortOption] = useState('Featured');
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [showToast, setShowToast] = useState(null);
 
-      <div id="sort-products" className="flex flex-row justify-between mb-6 mx-6 xl:mx-12"> <label>Sort <select id="sort">
-          <option>Feature</option>
-          </select></label>
-          
-        <h2>Products</h2>  
-      </div>
-    </div>
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const result = await axios.get('/api/menu-flower');
+                setProducts(result.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }  finally {
+                setLoading(false); 
+            }
+        };
+        fetchProducts();
+    }, []);
 
-    <div className="mx-auto mb-[200px] grid justify-center justify-items-center max-w-7xl gap-x-6 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 mt-8 ">
-    <a href="#" className="block hover:underline">
-    <img 
-        src="https://i.pinimg.com/564x/08/cf/c1/08cfc11b52219ca75e28540e27c89831.jpg" 
-        className="h-80 w-72 object-cover duration-500 hover:scale-105 hover:shadow-xl"
-    />
-    <div className="px-4 py-3 w-72">
-        <p className="text-lg font-bold text-black truncate block capitalize border-b-2 border-transparent hover:border-custom-bg-black">
-            Product Name
-        </p>
-        <div className="flex items-center">
-            <p className="text-lg font-semibold text-black cursor-auto my-3">$149</p>
+    useEffect(() => {
+        let sorted = [...products];
 
+        if (sortOption === 'A-Z') {
+            sorted.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortOption === 'Z-A') {
+            sorted.sort((a, b) => b.name.localeCompare(a.name));
+        } else if (sortOption === 'Price: Low to High') {
+            sorted.sort((a, b) => (a.price || 0) - (b.price || 0));
+        } else if (sortOption === 'Price: High to Low') {
+            sorted.sort((a, b) => (b.price || 0) - (a.price || 0));
+        } else {
+            sorted.sort((a, b) => a.id - b.id);
+        }
+
+        setSortedProducts(sorted);
+    }, [sortOption, products]);
+
+    const handleAddToCart = (item) => {
+        addToCart(item);
+        setShowToast(item.id);
+        setTimeout(() => setShowToast(null), 3000);
+    };
+
+
+    if (loading) return <Loading />;
+
+    return (
+        <div className="container mx-auto bg-orange-100 text-stone-900">
+        <h1 className="my-8 text-2xl sm:text-2xl md:text-3xl font-bold text-center ">Daily Flower Menu</h1>
+        <div className="sort-options grid justify-center max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 mt-12">
+            <label>
+                Sort by
+                <select onChange={(e) => setSortOption(e.target.value)} value={sortOption} className="bg-white">
+                    <option value="Featured">Featured</option>
+                    <option value="A-Z">A-Z</option>
+                    <option value="Z-A">Z-A</option>
+                    <option value="Price: Low to High">Price: Low to High</option>
+                    <option value="Price: High to Low">Price: High to Low</option>
+                </select>
+            </label>
         </div>
-
-
+        <div className="products mx-auto mb-[220px] grid justify-center max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 mt-12 justify-items-center">
+            {sortedProducts.map((item) => (
+                <div key={item.id} className="product-item hover:underline">
+                    <img src={item.image} alt={item.name} className="h-80 w-72 object-cover duration-500 hover:scale-105 hover:shadow-xl mb-2" />
+                    <h3>{item.name}</h3>
+                    <div className="flex flex-row justify-between content-end">
+                    <p className="">${item.price}</p>
+                    {showToast === item.id && (
+                            <Toast
+                                message="Item added to cart!"
+                                onClose={() => setShowToast(null)}
+                            />
+                        )}
+                    <button className="btn btn-outline btn-error" onClick={() => handleAddToCart(item)}>
+                    <CartIcon />
+                    </button>
+                    </div>
+                </div>
+            ))}
+        </div>
     </div>
-</a>
-
-        <a href="#">
-            <img src="https://images.unsplash.com/photo-1646753522408-077ef9839300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                    alt="Product" className="h-80 w-72 object-cover duration-500 hover:scale-105 hover:shadow-xl" />
-            <div className="px-4 py-3 w-72">
-                <p className="text-lg font-bold text-black truncate block capitalize">Product Name</p>
-                <div className="flex items-center">
-                    <p className="text-lg font-semibold text-black cursor-auto my-3">$149</p>
-                </div>
-            </div>
-        </a>
-        <a href="#">
-            <img src="https://images.unsplash.com/photo-1646753522408-077ef9839300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                    alt="Product" className="h-80 w-72 object-cover duration-500 hover:scale-105 hover:shadow-xl" />
-            <div className="px-4 py-3 w-72">
-                <p className="text-lg font-bold text-black truncate block capitalize">Product Name</p>
-                <div className="flex items-center">
-                    <p className="text-lg font-semibold text-black cursor-auto my-3">$149</p>
-                </div>
-            </div>
-        </a>
-       </div>
-      
-      
-  </div>   
-
-        </>
-    )
+    );
 }

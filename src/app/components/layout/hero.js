@@ -80,9 +80,9 @@ export default function Hero(props) {
     <h1 className='px-2 mx-auto max-w-screen-xl sm:py-4 lg:px-6 font-medium text-xl'>Create the perfect bouquet tailored to your needs or arranged in a vase for pick up or local delivery in Bkk. </h1>
     </div>
 
-    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-4 h-full justify-center xl:mx-[180px] mb-4">
+    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1  h-full justify-center xl:mx-[180px] mb-4">
 
-			<div className="col-span-2 sm:col-span-1 md:col-span-2 bg-gray-50 h-auto md:h-full flex flex-col">
+			<div className="col-span-2 sm:col-span-1 md:col-span-2 bg-gray-50 h-auto md:h-full flex flex-col p-4">
 				<a href="" className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 mb-4">
 					<img src="https://i.pinimg.com/736x/fa/3b/d9/fa3bd90277591515e3595b37f696d56f.jpg" alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"/>
 					<div className="absolute inset-0 bg-gradient-to-b from-gray-900/25 to-gray-900/5"></div>
@@ -102,7 +102,6 @@ export default function Hero(props) {
 				</div>
 			</div>
 		</div>
-     
     </div>
   </section>
   </>

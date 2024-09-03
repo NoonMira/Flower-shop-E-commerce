@@ -2,6 +2,8 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/layout/header";
 import Footer from "./components/layout/footer";
+import { SearchProvider } from "./components/context/SearchContext";
+import { CartProvider } from "./components/context/cartContext";
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] })
 
@@ -14,11 +16,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={roboto.className}>
-       <main className="max-w-8xl max-auto border"> 
-       <Navbar/>
-        {children}
+      <SearchProvider>
+        
+       <main className="max-w-8xl max-auto border bg-orange-100"> 
+       <CartProvider>
+            <Navbar />
+            <main>{children}</main>
+        </CartProvider>
         <Footer/>
         </main> 
+        </SearchProvider>
        </body>
     </html>
   );
