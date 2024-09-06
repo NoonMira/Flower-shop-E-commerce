@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 export default function Hero(props) {
   const texts = [{ text: "Order Flowers", href: "/menu" },
-				{ text: "Event Planning", href: "/collections/event" }
+				{ text: "Event Planning", href: "/event" }
   ]
   return (
     <>
