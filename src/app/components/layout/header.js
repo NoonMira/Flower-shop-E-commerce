@@ -1,13 +1,44 @@
 'use client'
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import SearchModal from "./searchModal";
 import CartModal from "./cartModal";
 import { useCart } from "../context/cartContext";
 import Link from "next/link";
+import { supabase } from "@/app/lib/db";
+import { useRouter } from 'next/navigation';
 
-// components/Navbar.js
-export default function Navbar() {
+
+export default function  Navbar() {
   const { getTotalQuantity } = useCart();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem('supabase_access_token');
+      if (token) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error('Error during logout:', error);
+      // Handle logout error
+    } else {
+      localStorage.removeItem('supabase_access_token');
+      setIsLoggedIn(false);
+      router.push('/login');
+    }
+  };
 
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
@@ -41,7 +72,23 @@ export default function Navbar() {
         <li><a>Homepage</a></li>
         <li><a>Order</a></li>
         <li><a>About</a></li>
-        <li><a>For admin</a></li>
+        {isLoggedIn ? (
+        <li>
+          <button
+            onClick={handleLogout}
+            className="p-2 bg-red-300 text-white rounded">
+            Logout
+          </button>
+        </li>
+      ) : (
+        <li>
+          <button
+            onClick={() => router.push('/login')}
+            className="p-2 bg-blue-300 text-white rounded">
+            Login
+          </button>
+        </li>
+      )}
       </ul>
     </div>
   </div>
