@@ -1,11 +1,11 @@
 "use client"
 import { useEffect, useState } from "react";
-import Loading from "@/components/layout/loading";
+import Loading from "../components/layout/loading";
 import axios from "axios";
-import { useSearch } from "@/components/context/SearchContext";
-import { useCart } from "@/components/context/cartContext";
-import { CartIcon } from "@/components/layout/icons";
-import Toast from "@/components/toast";
+import { useSearch } from "../components/context/SearchContext";
+import { useCart } from "../components/context/cartContext";
+import { CartIcon } from "../components/layout/icons";
+import Toast from "../components/toast";
 
 export default function FlowerMenu() {
     const { addToCart } = useCart();

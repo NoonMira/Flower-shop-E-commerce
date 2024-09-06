@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { supabase } from '../lib/db';
+import { supabase } from '@/lib/db';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 

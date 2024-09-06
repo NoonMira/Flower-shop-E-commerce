@@ -14,6 +14,9 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      screens: {
+        'xs': '378px', // กำหนด breakpoint สำหรับหน้าจอที่เล็กกว่า 378px
+      },
     },
   },
   plugins: [require('daisyui')],

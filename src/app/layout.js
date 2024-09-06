@@ -1,10 +1,9 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/layout/header";
-import Footer from "./components/layout/footer";
-import { SearchProvider } from "./components/context/SearchContext";
-import { CartProvider } from "./components/context/cartContext";
-
+import Navbar from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
+import { SearchProvider } from "@/components/context/SearchContext";
+import { CartProvider } from "@/components/context/cartContext";
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] })
 
 export const metadata = {
@@ -17,7 +16,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
       <SearchProvider>
-        
        <main className="max-w-8xl max-auto border bg-orange-100"> 
        <CartProvider>
             <Navbar />

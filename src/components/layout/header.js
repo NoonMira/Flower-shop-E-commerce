@@ -4,7 +4,7 @@ import SearchModal from "./searchModal";
 import CartModal from "./cartModal";
 import { useCart } from "../context/cartContext";
 import Link from "next/link";
-import { supabase } from "@/app/lib/db";
+import { supabase } from "@/lib/db";
 import { useRouter } from 'next/navigation';
 
 
