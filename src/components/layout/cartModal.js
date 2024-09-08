@@ -1,6 +1,7 @@
 'use client';
 import { useCart } from '../context/cartContext';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { TrashIcon } from './icons';
 
 const CartModal = ({ isOpen, onClose }) => {
@@ -18,6 +19,15 @@ const CartModal = ({ isOpen, onClose }) => {
     useEffect(() => {
         calculateTotalPrice();
     }, [cartItems]);
+
+    const router = useRouter();
+
+    if (!isOpen) return null;
+
+    const handleCheckout = () => {
+        router.push('/checkout'); 
+        onClose(); 
+    };
 
     if (!isOpen) return null;
 
@@ -73,7 +83,7 @@ const CartModal = ({ isOpen, onClose }) => {
                         <hr></hr>
                         <div className='mt-2 flex justify-between'>
                             <button className='text-white bg-gradient-to-r from-pink-200 via-pink-400 to-pink-500 hover:bg-gradient-to-br text-sm px-5 py-2.5 text-center me-2 mb-2 rounded-md' onClick={clearCart}>Clear</button>
-                            <button className='text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br text-sm px-5 py-2.5 text-center me-2 mb-2 rounded-md'>Check Out</button>
+                            <button  onClick={handleCheckout} className='text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br text-sm px-5 py-2.5 text-center me-2 mb-2 rounded-md'>Checkout</button>
                         </div>
                     </div>
                 )}

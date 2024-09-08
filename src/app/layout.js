@@ -4,7 +4,8 @@ import Navbar from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { SearchProvider } from "@/components/context/SearchContext";
 import { CartProvider } from "@/components/context/cartContext";
-const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] })
+
+const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
 export const metadata = {
   title: "Create Next App",
@@ -15,16 +16,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={roboto.className}>
-      <SearchProvider>
-       <main className="max-w-8xl max-auto border bg-orange-100"> 
-       <CartProvider>
+        <SearchProvider>
+          <CartProvider>
             <Navbar />
-            <main>{children}</main>
-        </CartProvider>
-        <Footer/>
-        </main> 
+            <main className="max-w-8xl max-auto border bg-orange-100">
+              {children}
+            </main>
+            <Footer />
+          </CartProvider>
         </SearchProvider>
-       </body>
+      </body>
     </html>
   );
 }

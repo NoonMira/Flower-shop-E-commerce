@@ -33,12 +33,17 @@ export default function Hero(props) {
   </div>
 </div>
 
-    {/* DailyProducts */}
+    {/* Weddings */}
     <section className="bg-white">
 	<div className="py-4 px-4 mx-auto max-w-screen-xl sm:py-4 lg:px-6 ">
     <div className='text-center m-8 font-extrabold text-4xl'>
     Event Planning
     <h1 className='px-2 mx-auto max-w-screen-xl sm:py-4 lg:px-6 font-medium text-xl'>From weddings to corporate events, we provide stunning floral arrangements for any occasion.</h1>
+	<button
+		className="text-xl font-bold text-center text-white bg-orange-300 border-orange-200 h-[68px] px-6 py-2 border-4 hover:bg-white hover:text-orange-300 transition duration-300 ease-in-out"
+	  ><Link href={"/event"} >
+		Learn More
+		</Link></button>
     </div>
 
 		<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 h-full justify-center xl:mx-[180px]">
@@ -72,12 +77,17 @@ export default function Hero(props) {
 	</div>
 </section>
 
-    {/* Services */}
+    {/* Daily Flower Menu */}
     <section className="py-12 bg-white">
     <div className="container mx-auto text-center">
     <div className='text-center m-8 font-extrabold text-4xl'>
     Daily Flower Menu
     <h1 className='px-2 mx-auto max-w-screen-xl sm:py-4 lg:px-6 font-medium text-xl'>Create the perfect bouquet tailored to your needs or arranged in a vase for pick up or local delivery in Bkk. </h1>
+	<button
+		className="text-xl font-bold text-center text-white bg-orange-300 border-orange-200 h-[68px] px-6 py-2 border-4 hover:bg-white hover:text-orange-300 transition duration-300 ease-in-out"
+	  ><Link href={"/menu"} >
+		Order Flowers
+		</Link></button>
     </div>
 
     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1  h-full justify-center xl:mx-[180px] mb-4">
